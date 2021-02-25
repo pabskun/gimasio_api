@@ -26,4 +26,19 @@ router.post('/registrar-ejercicio', (req, res) => {
 
 });
 
+router.get('/listar-ejercicios', (req, res) => {
+    Ejercicio.find((err, lista_ejercicios) => {
+        if (err) {
+            res.json({
+                msj: 'No se encontraron ejercicios',
+                err
+            });
+        } else {
+            res.json({
+                lista_ejercicios
+            });
+        }
+    });
+});
+
 module.exports = router;
