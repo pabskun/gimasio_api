@@ -41,4 +41,41 @@ router.get('/listar-ejercicios', (req, res) => {
     });
 });
 
+router.get('/buscar-ejercicio', (req, res) => {
+    Ejercicio.findOne({ _id: req.query._id }, (err, ejercicio) => {
+        if (err) {
+            res.json({
+                msj: 'No se encontró el ejercicio',
+                err
+            });
+        } else {
+            res.json({
+                ejercicio
+            });
+        }
+    });
+});
+
+router.put('/modificar-ejercicio', (req, res) => {
+    Ejercicio.updateOne({ _id: req.body._id }, {
+        $set: {
+            nombre: req.body.nombre,
+            zona: req.body.zona,
+            estado: req.body.estado
+        }
+    }, (err, info) => {
+        if (err) {
+            res.json({
+                msj: 'No se pudo modificar el ejercicio',
+                err
+            });
+        } else {
+            res.json({
+                info
+            });
+        }
+    });
+
+});
+
 module.exports = router;
