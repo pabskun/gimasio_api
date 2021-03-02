@@ -5,9 +5,10 @@ const router = express.Router();
 const Ejercicio = require('../models/ejercicios.model');
 
 router.post('/registrar-ejercicio', (req, res) => {
+    let obj_ejercicio = JSON.parse(req.body.obj);
     let ejercicio = new Ejercicio({
-        nombre: req.body.nombre,
-        zona: req.body.zona,
+        nombre: obj_ejercicio.nombre,
+        zona: obj_ejercicio.zona,
         estado: 'Activo'
     });
     ejercicio.save((err, ejercicio_bd) => {
