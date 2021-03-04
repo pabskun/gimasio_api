@@ -43,5 +43,35 @@ router.get('/listar-rutinas', (req, res) => {
         }
     });
 });
+router.put('eliminar-ejercicio-rutina', (req, res) => {
+    // Recibe el _id de la rutina, y la lista de ejercicios a eliminar
+    let ejercicios_eliminar = JSON.parse(req.body.ejercicios);
+    Rutina.findById(req.body._id, (err, rutina) => {
+        if (err) {
+            res.json({
+                msj: 'La rutina no se encontró',
+                err
+            });
+        } else {
+            ejercicios_eliminar.forEach(ejercicio => {
+                rutina.ejercicios.pull(ejercicio)
+            });
+            rutina.save((err, rutina) => {
+                if (err) {
+                    res.json({
+                        msj: 'La rutina no se pudo registrar',
+                        err
+                    });
+                } else {
+                    res.json({
+                        msj: 'La rutina se registró correctamente',
+                        rutina
+                    });
+                }
+            });
+        }
+    });
+});
+
 
 module.exports = router;
