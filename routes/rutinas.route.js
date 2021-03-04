@@ -44,7 +44,7 @@ router.get('/listar-rutinas', (req, res) => {
     });
 });
 router.put('eliminar-ejercicio-rutina', (req, res) => {
-    // Recibe el _id de la rutina, y la lista de ejercicios a eliminar
+    // Recibe el _id de la rutina, y la lista de _ids de los ejercicios a eliminar
     let ejercicios_eliminar = JSON.parse(req.body.ejercicios);
     Rutina.findById(req.body._id, (err, rutina) => {
         if (err) {
